@@ -6,16 +6,14 @@ authors = ["Akio Taniguchi <taniguchi@a.phys.nagoya-u.ac.jp>"]
 license = "MIT"
 
 [tool.poetry.dependencies]
-python = "~3.8"
+python = "^3.6.8"
 casadata = "^2021.10"
 casatasks = "^6.4"
 casatools = "^6.4"
-numpy = "^1.22"
+numpy = "^1.19"
 
 [tool.poetry.dev-dependencies]
 black = "^22.1"
-ipykernel = "^6.7"
-ipython = "^8.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
