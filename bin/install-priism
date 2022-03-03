@@ -1,15 +1,15 @@
-#!/bin/sh
+#!/bin/sh -e
 
 
 install () {
     PRIISM="$REPOSITORY/.cache/priism"
-    VERSION=$1
+    PRIISM_VERSION=$1
 
     rm -rf "$PRIISM"
     git clone git@github.com:tnakazato/priism.git "$PRIISM"
 
     cd "$PRIISM"
-    git checkout "$VERSION"
+    git checkout "$PRIISM_VERSION"
 
     pip uninstall -yq priism
     python setup.py build $PRIISM_BUILD_OPTIONS
@@ -18,4 +18,4 @@ install () {
 
 
 REPOSITORY="$(cd "$(dirname "${BASH_SOURCE:-$0}")" && cd .. && pwd)"
-install $*
+install $1

@@ -1,18 +1,18 @@
-#!/bin/sh
+#!/bin/sh -eu
 
 
 download () {
     DATA="$REPOSITORY/data"
-    MS="HLTau_Band6_CalibratedData"
+    HLTAU="HLTau_Band6_CalibratedData"
 
-    if [ -d "$DATA/$MS" ]
+    if [ -d "$DATA/$HLTAU" ]
     then
-        echo "$DATA/$MS already exists."
+        echo "$DATA/$HLTAU already exists."
         return 0
     fi
 
-    wget "https://alma-dl.mtk.nao.ac.jp/ftp/alma/sciver/HLTauBand6/$MS.tgz" -P "$DATA"
-    tar xf "$DATA/$MS.tgz" -C "$DATA"
+    wget "https://alma-dl.mtk.nao.ac.jp/ftp/alma/sciver/HLTauBand6/$HLTAU.tgz" -P "$DATA"
+    tar xf "$DATA/$HLTAU.tgz" -C "$DATA"
 }
 
 
