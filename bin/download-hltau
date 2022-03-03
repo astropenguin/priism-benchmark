@@ -1,0 +1,20 @@
+#!/bin/sh -eu
+
+
+download () {
+    DATA="$REPOSITORY/data"
+    HLTAU="HLTau_Band6_CalibratedData"
+
+    if [ -d "$DATA/$HLTAU" ]
+    then
+        echo "$DATA/$HLTAU already exists."
+        return 0
+    fi
+
+    wget "https://alma-dl.mtk.nao.ac.jp/ftp/alma/sciver/HLTauBand6/$HLTAU.tgz" -P "$DATA"
+    tar xf "$DATA/$HLTAU.tgz" -C "$DATA"
+}
+
+
+REPOSITORY="$(cd "$(dirname "${BASH_SOURCE:-$0}")" && cd .. && pwd)"
+download

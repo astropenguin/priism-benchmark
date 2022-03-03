@@ -1,0 +1,59 @@
+#!/usr/bin/env python
+
+
+# standard library
+import os
+import time
+from contextlib import contextmanager
+from pathlib import Path
+
+
+# dependencies
+from priism.alma import AlmaSparseModelingImager
+
+
+# constants
+DATA = Path(__file__).parent.parent / "data"
+LOG = Path(__file__).parent.parent / "log"
+HLTAU = DATA / "HLTau_Band6_CalibratedData" / "HLTau_B6cont.calavg"
+OMP_NUM_THREADS = os.environ.get("OMP_NUM_THREADS")
+PRIISM_VERSION = os.environ.get("PRIISM_VERSION")
+
+
+# runtime function
+@contextmanager
+def log(path: Path):
+    t_start = time.time()
+    yield
+    t_end = time.time()
+
+    with open(path, "a") as f:
+        f.write(f"{PRIISM_VERSION},{OMP_NUM_THREADS},{t_end-t_start:.2f}\n")
+
+
+if __name__ == "__main__":
+    assert HLTAU.exists()
+    assert OMP_NUM_THREADS
+    assert PRIISM_VERSION
+
+    imager = AlmaSparseModelingImager(solver="mfista_nufft")
+    imager.selectdata(
+        vis=str(HLTAU),
+        spw="0",
+        intent="OBSERVE_TARGET#ON_SOURCE",
+        datacolumn="data",
+    )
+    imager.defineimage(
+        imsize=[1600, 1600],
+        cell=["0.005arcsec", "0.005arcsec"],
+        phasecenter="0",
+        nchan=1,
+        start=0,
+        width=4,
+    )
+    imager.readvis()
+
+    with log(LOG / "benchmark.log"):
+        imager.solve(l1=1e9, ltsv=1e9, maxiter=100)
+
+    imager.exportimage(str(LOG / f"{PRIISM_VERSION}-{OMP_NUM_THREADS}.fits"))

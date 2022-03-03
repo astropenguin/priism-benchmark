@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "priism-benchmark"
+version = "0.1.0"
+description = "Python 3 environment for benchmarking PRIISM"
+authors = ["Akio Taniguchi <taniguchi@a.phys.nagoya-u.ac.jp>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.6.8"
+casadata = "^2021.10"
+casatasks = "^6.4"
+casatools = "^6.4"
+numpy = "^1.19"
+
+[tool.poetry.dev-dependencies]
+black = "^22.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
