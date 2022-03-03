@@ -1,6 +1,8 @@
 # Directories to be kept
 data/*
 !data/.gitkeep
+log/*
+!log/.gitkeep
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
