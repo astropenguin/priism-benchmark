@@ -1,0 +1,25 @@
+#!/bin/sh -eu
+
+
+run () {
+    PRIISM_VERSIONS=$1
+    OMP_NUM_THREADS=$2
+
+    "$REPOSITORY/bin/download-hltau"
+
+    for VER in $(echo "$PRIISM_VERSIONS" | tr "," "\n")
+    do
+        "$REPOSITORY/bin/install-priism" "$VER"
+
+        for NUM in $(echo "$OMP_NUM_THREADS" | tr "," "\n")
+        do
+            OMP_NUM_THREADS="$NUM" \
+            PRIISM_VERSION="$VER" \
+            "$REPOSITORY/bin/image-hltau"
+        done
+    done
+}
+
+
+REPOSITORY="$(cd "$(dirname "${BASH_SOURCE:-$0}")" && cd .. && pwd)"
+run $1 $2
