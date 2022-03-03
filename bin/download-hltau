@@ -1,0 +1,20 @@
+#!/bin/sh
+
+
+download () {
+    DATA="$REPOSITORY/data"
+    MS="HLTau_Band6_CalibratedData"
+
+    if [ -d "$DATA/$MS" ]
+    then
+        echo "$DATA/$MS already exists."
+        return 0
+    fi
+
+    wget "https://alma-dl.mtk.nao.ac.jp/ftp/alma/sciver/HLTauBand6/$MS.tgz" -P "$DATA"
+    tar xf "$DATA/$MS.tgz" -C "$DATA"
+}
+
+
+REPOSITORY="$(cd "$(dirname "${BASH_SOURCE:-$0}")" && cd .. && pwd)"
+download
