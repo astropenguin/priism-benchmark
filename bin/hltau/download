@@ -1,0 +1,31 @@
+#!/bin/sh -eu
+
+
+download () {
+    CACHE="$REPOSITORY/.cache"
+    TAR="HLTau_Band6_CalibratedData.tgz"
+
+    if [ ! -e "$CACHE/$TAR" ]
+    then
+        wget -P "$CACHE" "https://alma-dl.mtk.nao.ac.jp/ftp/alma/sciver/HLTauBand6/$TAR"
+    fi
+}
+
+
+deploy () {
+    CACHE="$REPOSITORY/.cache"
+    DATA="$REPOSITORY/data/hltau"
+    SUB="HLTau_Band6_CalibratedData/HLTau_B6cont.calavg"
+    TAR="HLTau_Band6_CalibratedData.tgz"
+
+    if [ ! -d "$DATA/data.ms" ]
+    then
+        mkdir -p "$DATA"
+        tar xf "$CACHE/$TAR" -C "$CACHE" "$SUB"
+        mv "$CACHE/$SUB" "$DATA/data.ms"
+    fi
+}
+
+
+REPOSITORY="$(cd "$(dirname "${BASH_SOURCE:-$0}")" && cd ../.. && pwd)"
+download && deploy
