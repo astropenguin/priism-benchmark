@@ -5,7 +5,7 @@ run () {
     PRIISM_VERSIONS=$1
     OMP_NUM_THREADS=$2
 
-    "$REPOSITORY/bin/download-hltau"
+    "$REPOSITORY/bin/hltau/download"
 
     for VER in $(echo "$PRIISM_VERSIONS" | tr "," "\n")
     do
@@ -15,11 +15,11 @@ run () {
         do
             OMP_NUM_THREADS="$NUM" \
             PRIISM_VERSION="$VER" \
-            "$REPOSITORY/bin/image-hltau"
+            "$REPOSITORY/bin/hltau/imaging"
         done
     done
 }
 
 
-REPOSITORY="$(cd "$(dirname "${BASH_SOURCE:-$0}")" && cd .. && pwd)"
+REPOSITORY="$(cd "$(dirname "${BASH_SOURCE:-$0}")" && cd ../.. && pwd)"
 run $1 $2
