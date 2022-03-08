@@ -47,7 +47,7 @@ def main() -> None:
     t_end = time.time()
 
     # output results
-    log = "benchmark.log"
+    log = "benchmark.csv"
     LOG.mkdir(parents=True, exist_ok=True)
 
     if not (LOG / log).exists():
