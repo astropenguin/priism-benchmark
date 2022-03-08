@@ -34,7 +34,7 @@ poetry run bin/hltau/benchmark priism-0.7.15,priism-0.7.16 32,64
 where the first argument should be comma-separated PRIISM versions (i.e. tag or commit ref.) and the second argument should be comma-separated `OMP_NUM_THERADS`s.
 
 Output FITS images and a log file will be put in `/path/to/repository/log/hltau`.
-The format of the log file (`benchmark.log`) contains comma-separated values:
+The format of the log file (`benchmark.csv`) is like:
 
 ```plaintext
 PRIISM version,Number of threads,Elapsed time (s)
@@ -44,7 +44,7 @@ priism-0.7.16,32,97.42
 priism-0.7.16,64,106.51
 ```
 
-where the first, second, and third columns correspond to the PRIISM version, the number of threads, and the elapsed time (in seconds) for `imager.solve(...)`, respectively.
+where the first, second, and third columns correspond to the PRIISM version, the number of threads used for imaging, and the elapsed time (in seconds) of imaging (i.e. `imager.solve(...)`), respectively.
 
 ### PRIISM build options
 
