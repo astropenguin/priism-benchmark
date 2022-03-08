@@ -2,7 +2,7 @@
 Python 3 environment for benchmarking PRIISM
 
 
-## Usage
+## Basic usage
 
 ### Install [Poetry]
 
@@ -46,12 +46,29 @@ priism-0.7.16,64,106.51
 
 where the first, second, and third columns correspond to the PRIISM version, the number of threads used for imaging, and the elapsed time (in seconds) of imaging (i.e. `imager.solve(...)`), respectively.
 
+## Advanced usage
+
 ### PRIISM build options
 
 PRIISM build options can be specified by an environment variable `PRIISM_BUILD_OPTIONS`:
 
 ```bash
 PRIISM_BUILD_OPTIONS="-X yes" poetry run bin/hltau/benchmark priism-0.7.15,priism-0.7.16 8,32,64
+```
+
+### Use as a PRIISM installer
+
+You may also use this repository as a simple way of installing PRIISM (and dependencies):
+
+```bash
+poetry install
+PRIISM_BUILD_OPTIONS="-X yes" poetry run bin/install-priism priism-0.7.16
+```
+
+Then you can run your own script that uses PRIISM:
+
+```bash
+poetry run python /path/to/script.py
 ```
 
 [Poetry]: https://python-poetry.org/
