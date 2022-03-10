@@ -18,6 +18,8 @@ run () {
             "$REPOSITORY/bin/hltau/imaging"
         done
     done
+
+    "$REPOSITORY/bin/hltau/plotting"
 }
 
 

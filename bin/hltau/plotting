@@ -1,0 +1,38 @@
+#!/usr/bin/env python
+
+
+# standard library
+from pathlib import Path
+
+
+# dependencies
+import pandas as pd
+import matplotlib.pyplot as plt
+
+
+# constants
+DATA = Path(__file__).resolve().parents[2] / "data" / "hltau"
+LOG = Path(__file__).resolve().parents[2] / "log" / "hltau"
+
+
+def main() -> None:
+    log = "benchmark.csv"
+    pdf = "benchmark.pdf"
+
+    fig, ax = plt.subplots()
+    df = pd.read_csv(LOG / log, index_col=[0, 1])
+
+    for version in df.index.levels[0]:
+        label = version.upper().replace("-", " ")
+        df.loc[version].plot(y=0, style="-o", label=label, ax=ax)
+
+    ax.set_ylabel("Elapsed time (s)")
+    ax.set_xscale("log")
+    ax.set_yscale("log")
+
+    fig.tight_layout()
+    fig.savefig(LOG / pdf)
+
+
+if __name__ == "__main__":
+    main()
