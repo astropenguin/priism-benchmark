@@ -10,7 +10,9 @@ python = "^3.6.8"
 casadata = "^2021.10"
 casatasks = "^6.4"
 casatools = "^6.4"
+matplotlib = "^3.3"
 numpy = "^1.19"
+pandas = "^1.1"
 
 [tool.poetry.dev-dependencies]
 black = "^22.1"
